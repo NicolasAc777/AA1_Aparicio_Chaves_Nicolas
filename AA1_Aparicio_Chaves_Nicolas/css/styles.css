@@ -1,0 +1,754 @@
+/* ==========================================================
+   CineReseñas - Hoja de Estilos Principal
+   Autor: AA1_Aparicio_Chaves_Nicolas
+   Framework: Bootstrap 5.3
+   Responsive: móvil (<576px), tablet (≥576px), desktop (≥768px)
+   ========================================================== */
+
+/* ---- Variables CSS ---- */
+:root {
+    --color-primary:     #f5c518;   /* Amarillo IMDb */
+    --color-dark:        #0d0d0d;
+    --color-dark-card:   #1a1a2e;
+    --color-dark-soft:   #16213e;
+    --color-text:        #212529;
+    --color-muted:       #6c757d;
+    --font-heading:      'Montserrat', sans-serif;
+    --font-body:         'Open Sans', sans-serif;
+    --radius-card:       12px;
+    --shadow-card:       0 4px 20px rgba(0,0,0,0.12);
+    --transition-fast:   0.25s ease;
+}
+
+/* ---- Reset y base ---- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    background-color: #f8f9fa;
+    padding-top: 70px; /* Compensa el navbar fixed */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+}
+
+/* ================================================================
+   NAVBAR
+   ================================================================ */
+.navbar {
+    background-color: var(--color-dark) !important;
+    border-bottom: 2px solid var(--color-primary);
+}
+
+.brand-text {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 1.3rem;
+    letter-spacing: -0.5px;
+}
+
+.navbar-nav .nav-link {
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+    transition: color var(--transition-fast);
+    padding: 0.5rem 0.8rem;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: var(--color-primary) !important;
+}
+
+/* ================================================================
+   HERO / BANNER PRINCIPAL
+   ================================================================ */
+.hero-section {
+    position: relative;
+    min-height: 480px;
+    background-image: url('../img/posters/dune2.jpg');
+    background-size: cover;
+    background-position: center top;
+    background-attachment: fixed;
+    margin-top: -70px;
+    padding-top: 70px;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to right,
+        rgba(0,0,0,0.88) 0%,
+        rgba(0,0,0,0.55) 60%,
+        rgba(0,0,0,0.15) 100%
+    );
+}
+
+.hero-title {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 2.8rem;
+    line-height: 1.1;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+}
+
+.hero-desc {
+    font-size: 1rem;
+    max-width: 520px;
+    line-height: 1.6;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+}
+
+/* ================================================================
+   SECCIÓN TÍTULOS
+   ================================================================ */
+.section-title {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: var(--color-dark);
+    margin-bottom: 0.25rem;
+}
+
+/* ================================================================
+   FILTROS
+   ================================================================ */
+#filtros {
+    background-color: #ffffff;
+    border-radius: var(--radius-card);
+    padding: 1.25rem;
+    box-shadow: var(--shadow-card);
+    border-left: 4px solid var(--color-primary);
+}
+
+#filtros .form-label {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--color-muted);
+    margin-bottom: 0.3rem;
+}
+
+#filtros .form-control:focus,
+#filtros .form-select:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 0.2rem rgba(245, 197, 24, 0.25);
+}
+
+/* ================================================================
+   TARJETAS DE PELÍCULA
+   ================================================================ */
+.movie-card {
+    border: none;
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    background-color: #ffffff;
+}
+
+.movie-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.18) !important;
+}
+
+.movie-poster-wrapper {
+    position: relative;
+    overflow: hidden;
+    background-color: #111;
+    aspect-ratio: 2/3;
+}
+
+.movie-poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+    display: block;
+}
+
+.movie-card:hover .movie-poster {
+    transform: scale(1.06);
+}
+
+/* Overlay al hacer hover */
+.movie-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.movie-card:hover .movie-overlay {
+    opacity: 1;
+}
+
+/* Badge de calificación */
+.badge-rating {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: var(--color-primary);
+    color: #000;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.78rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    z-index: 2;
+}
+
+/* Badge de género */
+.badge-genre {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    background-color: rgba(0,0,0,0.75);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 20px;
+    z-index: 2;
+    backdrop-filter: blur(4px);
+}
+
+.movie-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--color-dark);
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+    /* Limitar a 2 líneas */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ================================================================
+   SECCIÓN FAVORITAS
+   ================================================================ */
+#favoritas .alert {
+    border-radius: var(--radius-card);
+    border-left: 4px solid var(--color-primary);
+}
+
+.favorita-mini {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 10px;
+    transition: transform var(--transition-fast);
+}
+
+.favorita-mini:hover {
+    transform: translateX(4px);
+}
+
+.favorita-mini img {
+    width: 48px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* ================================================================
+   PÁGINA DE DETALLE
+   ================================================================ */
+
+/* Hero del detalle */
+.detalle-hero {
+    background-image: url('../img/posters/dune2.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 220px;
+    position: relative;
+}
+
+.detalle-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.6) 0%,
+        rgba(0,0,0,0.85) 100%
+    );
+}
+
+/* Póster en detalle */
+.poster-detalle {
+    border-radius: var(--radius-card);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    transition: transform var(--transition-fast);
+}
+
+.poster-detalle:hover {
+    transform: scale(1.02);
+}
+
+/* Tabs */
+.nav-tabs .nav-link {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 0.6rem 1rem;
+    transition: all var(--transition-fast);
+}
+
+.nav-tabs .nav-link:hover {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+    background: transparent;
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--color-primary);
+    border-bottom: 3px solid var(--color-primary);
+    background: transparent;
+    font-weight: 700;
+}
+
+.tab-content > .tab-pane {
+    animation: fadeInTab 0.3s ease;
+}
+
+@keyframes fadeInTab {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Ficha técnica rápida */
+.info-badge {
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.info-badge i {
+    font-size: 1.4rem;
+    display: block;
+    margin-bottom: 4px;
+}
+
+/* Rating display */
+.rating-display {
+    display: flex;
+    align-items: center;
+}
+
+/* Estrellas de calificación */
+.stars-display {
+    display: flex;
+    gap: 2px;
+}
+
+.stars-display .star-filled {
+    color: var(--color-primary);
+}
+
+.stars-display .star-half {
+    color: var(--color-primary);
+    opacity: 0.6;
+}
+
+.stars-display .star-empty {
+    color: #dee2e6;
+}
+
+/* Star rating input (formulario) */
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 4px;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    font-size: 1.6rem;
+    color: #dee2e6;
+    cursor: pointer;
+    transition: color var(--transition-fast);
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input:checked ~ label {
+    color: var(--color-primary);
+}
+
+/* ================================================================
+   ACTORES
+   ================================================================ */
+.actor-card {
+    border-radius: var(--radius-card);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.actor-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12) !important;
+}
+
+.actor-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.actor-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ================================================================
+   GALERÍA
+   ================================================================ */
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.gallery-thumb {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+    display: block;
+}
+
+.gallery-item:hover .gallery-thumb {
+    transform: scale(1.08);
+}
+
+.gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+/* ================================================================
+   COMENTARIOS
+   ================================================================ */
+.comentario-card {
+    border-radius: var(--radius-card);
+    background-color: #ffffff;
+    transition: box-shadow var(--transition-fast);
+}
+
+.comentario-card:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1) !important;
+}
+
+.avatar-comentario {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.like-btn {
+    transition: all var(--transition-fast);
+}
+
+.like-btn.liked {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #000;
+}
+
+/* Respuesta a comentario */
+.comentario-respuesta {
+    border-left: 3px solid var(--color-primary);
+    margin-left: 20px;
+    padding-left: 12px;
+    background-color: #fffdf0;
+    border-radius: 0 8px 8px 0;
+}
+
+/* ================================================================
+   FOOTER
+   ================================================================ */
+footer {
+    border-top: 2px solid var(--color-primary);
+}
+
+footer a:hover {
+    color: var(--color-primary) !important;
+}
+
+/* ================================================================
+   UTILIDADES ADICIONALES
+   ================================================================ */
+.btn-warning {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #000;
+    font-weight: 600;
+}
+
+.btn-warning:hover {
+    background-color: #e6b800;
+    border-color: #e6b800;
+    color: #000;
+}
+
+/* Animación de entrada para tarjetas */
+.pelicula-item {
+    animation: fadeInCard 0.4s ease both;
+}
+
+@keyframes fadeInCard {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Tarjeta oculta por filtros */
+.pelicula-item.oculta {
+    display: none !important;
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #e6b800;
+}
+
+/* ================================================================
+   RESPONSIVE - MÓVIL (<576px)
+   Clases Bootstrap: .col-
+   ================================================================ */
+@media (max-width: 575.98px) {
+    body {
+        padding-top: 60px;
+    }
+
+    .hero-section {
+        min-height: 320px;
+        background-attachment: scroll; /* Parallax desactivado en móvil */
+    }
+
+    .hero-title {
+        font-size: 1.8rem;
+    }
+
+    .hero-desc {
+        font-size: 0.88rem;
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+    }
+
+    #filtros {
+        padding: 0.85rem;
+    }
+
+    .movie-poster-wrapper {
+        aspect-ratio: 2/3;
+    }
+
+    .badge-rating {
+        font-size: 0.72rem;
+        padding: 3px 6px;
+    }
+
+    .nav-tabs .nav-link {
+        font-size: 0.78rem;
+        padding: 0.5rem 0.6rem;
+    }
+
+    .poster-detalle {
+        max-width: 220px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .detalle-hero {
+        min-height: 140px;
+    }
+
+    .brand-text {
+        font-size: 1.1rem;
+    }
+
+    .star-rating label {
+        font-size: 1.3rem;
+    }
+}
+
+/* ================================================================
+   RESPONSIVE - TABLET (≥576px)
+   Clases Bootstrap: .col-sm-
+   ================================================================ */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .hero-section {
+        min-height: 380px;
+        background-attachment: scroll;
+    }
+
+    .hero-title {
+        font-size: 2.2rem;
+    }
+
+    .section-title {
+        font-size: 1.4rem;
+    }
+
+    .movie-poster-wrapper {
+        aspect-ratio: 2/3;
+    }
+
+    .detalle-hero {
+        min-height: 180px;
+    }
+
+    .poster-detalle {
+        max-width: 100%;
+    }
+}
+
+/* ================================================================
+   RESPONSIVE - DESKTOP (≥768px)
+   Clases Bootstrap: .col-md-
+   ================================================================ */
+@media (min-width: 768px) {
+    .hero-section {
+        min-height: 500px;
+    }
+
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .hero-desc {
+        font-size: 1.05rem;
+    }
+
+    .section-title {
+        font-size: 1.7rem;
+    }
+
+    .movie-poster-wrapper {
+        aspect-ratio: 2/3;
+    }
+
+    .detalle-hero {
+        min-height: 240px;
+    }
+
+    /* Columna de póster fija en detalle */
+    .sticky-md-top {
+        position: sticky;
+        top: 80px;
+    }
+}
+
+/* ================================================================
+   ANIMACIONES Y EFECTOS ESPECIALES
+   ================================================================ */
+
+/* Efecto de carga progresiva */
+.img-loading {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Botón de volver arriba */
+#btnScrollTop {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    color: #000;
+    border: none;
+    font-size: 1.2rem;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: transform var(--transition-fast), background-color var(--transition-fast);
+}
+
+#btnScrollTop:hover {
+    transform: translateY(-3px);
+    background-color: #e6b800;
+}
+
+#btnScrollTop.visible {
+    display: flex;
+}
