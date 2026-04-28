@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="CineReseñas - Encuentra y reseña tus películas favoritas" />
+    <meta name="author" content="AA1_Aparicio_Chaves_Nicolas" />
+    <title>CineReseñas - Inicio</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@400;600&display=swap" />
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top shadow">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                <i class="bi bi-camera-reels-fill text-warning fs-4"></i>
+                <span class="brand-text">Cine<span class="text-warning">Reseñas</span></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarMain" aria-controls="navbarMain"
+                    aria-expanded="false" aria-label="Alternar navegación">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">
+                            <i class="bi bi-house-fill me-1"></i>Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#peliculas">
+                            <i class="bi bi-film me-1"></i>Películas
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#favoritas">
+                            <i class="bi bi-heart-fill me-1"></i>Favoritas
+                        </a>
+                    </li>
+                </ul>
+                <!-- Búsqueda en navbar (visible en desktop) -->
+                <form class="d-none d-md-flex" id="formBusquedaNav" role="search">
+                    <div class="input-group">
+                        <input class="form-control form-control-sm" type="search"
+                               id="busquedaNav" placeholder="Buscar película..."
+                               aria-label="Buscar" />
+                        <button class="btn btn-warning btn-sm" type="submit">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!-- /NAVBAR -->
+
+    <!-- ===== HERO / BANNER ===== -->
+    <header class="hero-section d-flex align-items-end" id="inicio">
+        <div class="hero-overlay"></div>
+        <div class="container position-relative pb-5">
+            <div class="row">
+                <div class="col-12 col-sm-10 col-md-8">
+                    <span class="badge bg-warning text-dark mb-2 px-3 py-2">
+                        <i class="bi bi-star-fill me-1"></i>Película Destacada
+                    </span>
+                    <h1 class="hero-title text-white">Dune: Parte Dos</h1>
+                    <p class="hero-desc text-white-50">
+                        Paul Atreides se une a los Fremen y emprende un viaje espiritual y marcial para convertirse en Muad'Dib,
+                        mientras intenta evitar el terrible futuro que solo él puede prever.
+                    </p>
+                    <div class="d-flex flex-wrap gap-2 mt-3">
+                        <a href="detalle.html?id=1" class="btn btn-warning btn-lg fw-bold">
+                            <i class="bi bi-play-circle-fill me-2"></i>Ver Reseña
+                        </a>
+                        <button class="btn btn-outline-light btn-lg" onclick="agregarFavorito(1)">
+                            <i class="bi bi-heart me-2"></i>Favorita
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- /HERO -->
+
+    <!-- ===== SECCIÓN PRINCIPAL ===== -->
+    <main class="container py-5" id="peliculas">
+
+        <!-- Título de sección -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 class="section-title">
+                    <i class="bi bi-collection-play-fill text-warning me-2"></i>
+                    Últimas Películas
+                </h2>
+                <hr class="border-warning opacity-50" />
+            </div>
+        </div>
+
+        <!-- ===== BARRA DE BÚSQUEDA Y FILTROS ===== -->
+        <div class="row g-3 mb-4 align-items-end" id="filtros">
+
+            <!-- Búsqueda principal -->
+            <div class="col-12 col-sm-12 col-md-4">
+                <label for="busquedaPrincipal" class="form-label fw-semibold">
+                    <i class="bi bi-search me-1 text-warning"></i>Buscar película
+                </label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="busquedaPrincipal"
+                           placeholder="Título de la película..." />
+                    <button class="btn btn-warning" type="button" id="btnBuscar">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filtro por género -->
+            <div class="col-6 col-sm-4 col-md-2">
+                <label for="filtroGenero" class="form-label fw-semibold">
+                    <i class="bi bi-tag-fill me-1 text-warning"></i>Género
+                </label>
+                <select class="form-select" id="filtroGenero">
+                    <option value="">Todos</option>
+                    <option value="accion">Acción</option>
+                    <option value="aventura">Aventura</option>
+                    <option value="ciencia-ficcion">Ciencia Ficción</option>
+                    <option value="drama">Drama</option>
+                    <option value="suspenso">Suspenso</option>
+                    <option value="terror">Terror</option>
+                    <option value="comedia">Comedia</option>
+                </select>
+            </div>
+
+            <!-- Filtro por año -->
+            <div class="col-6 col-sm-4 col-md-2">
+                <label for="filtroAnio" class="form-label fw-semibold">
+                    <i class="bi bi-calendar3 me-1 text-warning"></i>Año
+                </label>
+                <select class="form-select" id="filtroAnio">
+                    <option value="">Todos</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2019">2019</option>
+                    <option value="2014">2014</option>
+                    <option value="2010">2010</option>
+                </select>
+            </div>
+
+            <!-- Filtro por calificación -->
+            <div class="col-6 col-sm-4 col-md-2">
+                <label for="filtroCalif" class="form-label fw-semibold">
+                    <i class="bi bi-star-fill me-1 text-warning"></i>Calificación
+                </label>
+                <select class="form-select" id="filtroCalif">
+                    <option value="">Todas</option>
+                    <option value="9">9+ Excelente</option>
+                    <option value="8">8+ Muy buena</option>
+                    <option value="7">7+ Buena</option>
+                    <option value="6">6+ Regular</option>
+                </select>
+            </div>
+
+            <!-- Ordenar por -->
+            <div class="col-6 col-sm-4 col-md-2">
+                <label for="filtroOrden" class="form-label fw-semibold">
+                    <i class="bi bi-sort-down me-1 text-warning"></i>Ordenar por
+                </label>
+                <select class="form-select" id="filtroOrden">
+                    <option value="fecha-desc">Más recientes</option>
+                    <option value="fecha-asc">Más antiguas</option>
+                    <option value="calif-desc">Mayor calificación</option>
+                    <option value="titulo-asc">Título A-Z</option>
+                </select>
+            </div>
+
+            <!-- Botón limpiar filtros -->
+            <div class="col-12 col-sm-4 col-md-12 d-flex gap-2 justify-content-end">
+                <button class="btn btn-outline-secondary" id="btnLimpiar" type="button">
+                    <i class="bi bi-x-circle me-1"></i>Limpiar filtros
+                </button>
+                <span class="badge bg-secondary align-self-center" id="contadorResultados">
+                    8 películas
+                </span>
+            </div>
+        </div>
+        <!-- /FILTROS -->
+
+        <!-- ===== LISTADO DE PELÍCULAS ===== -->
+        <div class="row g-4" id="listadoPeliculas">
+
+            <!-- Tarjeta 1: Dune Parte 2 -->
+            <div class="col-12 col-sm-6 col-md-4 pelicula-item"
+                 data-titulo="dune parte dos"
+                 data-genero="ciencia-ficcion"
+                 data-anio="2024"
+                 data-calif="8.5"
+                 data-fecha="2024-03-01">
+                <div class="card movie-card h-100 shadow-sm">
+                    <div class="movie-poster-wrapper">
+                        <img src="img/posters/dune2.jpg" class="card-img-top movie-poster"
+                             alt="Póster de Dune: Parte Dos" loading="lazy" />
+                        <div class="movie-overlay">
+                            <a href="detalle.html?id=1" class="btn btn-warning btn-sm fw-bold">
+                                <i class="bi bi-eye-fill me-1"></i>Ver Reseña
+                            </a>
+                        </div>
+                        <span class="badge-rating">
+                            <i class="bi bi-star-fill me-1"></i>8.5
+                        </span>
+                        <span class="badge-genre">Ciencia Ficción</span>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title movie-title">Dune: Parte Dos</h5>
+                        <p class="card-text text-muted small flex-grow-1">
+                            Paul Atreides se une a los Fremen para vengar la destrucción de su familia
+                            mientras intenta evitar un terrible futuro.
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <small class="text-muted">
+                                <i class="bi bi-calendar3 me-1"></i>01 Mar 2024
+                            </small>
+                            <div class="d-flex gap-1">
+                                <button class="btn btn-outline-warning btn-sm" onclick="agregarFavorito(1)" title="Agregar a favoritas">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                                <a href="detalle.html?id=1" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 2: Oppenheimer -->
+            <div class="col-12 col-sm-6 col-md-4 pelicula-item"
+                 data-titulo="oppenheimer"
+                 data-genero="drama"
+                 data-anio="2023"
+                 data-calif="8.9"
+                 data-fecha="2023-07-21">
+                <div class="card movie-card h-100 shadow-sm">
+                    <div class="movie-poster-wrapper">
+                        <img src="img/posters/oppenheimer.jpg" class="card-img-top movie-poster"
+                             alt="Póster de Oppenheimer" loading="lazy" />
+                        <div class="movie-overlay">
+                            <a href="detalle.html?id=2" class="btn btn-warning btn-sm fw-bold">
+                                <i class="bi bi-eye-fill me-1"></i>Ver Reseña
+                            </a>
+                        </div>
+                        <span class="badge-rating">
+                            <i class="bi bi-star-fill me-1"></i>8.9
+                        </span>
+                        <span class="badge-genre">Drama</span>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title movie-title">Oppenheimer</h5>
+                        <p class="card-text text-muted small flex-grow-1">
+                            La historia del físico J. Robert Oppenheimer y su papel en el desarrollo
+                            de la primera bomba atómica durante la Segunda Guerra Mundial.
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <small class="text-muted">
+                                <i class="bi bi-calendar3 me-1"></i>21 Jul 2023
+                            </small>
+                            <div class="d-flex gap-1">
+                                <button class="btn btn-outline-warning btn-sm" onclick="agregarFavorito(2)" title="Agregar a favoritas">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                                <a href="detalle.html?id=2" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 3: Top Gun Maverick -->
+            <div class="col-12 col-sm-6 col-md-4 pelicula-item"
+                 data-titulo="top gun maverick"
+                 data-genero="accion"
+                 data-anio="2022"
+                 data-calif="8.2"
+                 data-fecha="2022-05-27">
+                <div class="card movie-card h-100 shadow-sm">
+                    <div class="movie-poster-wrapper">
+                        <img src="img/posters/topgun_maverick.jpg" class="card-img-top movie-poster"
+                             alt="Póster de Top Gun: Maverick" loading="lazy" />
+                        <div class="movie-overlay">
+                            <a href="detalle.html?id=5" class="btn btn-warning btn-sm fw-bold">
+                                <i class="bi bi-eye-fill me-1"></i>Ver Reseña
+                            </a>
+                        </div>
+                        <span class="badge-rating">
+                            <i class="bi bi-star-fill me-1"></i>8.2
+                        </span>
+                        <span class="badge-genre">Acción</span>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title movie-title">Top Gun: Maverick</h5>
+                        <p class="card-text text-muted small flex-grow-1">
+                            Después de más de 30 años de servicio, Pete "Maverick" Mitchell sigue siendo
+                            piloto de pruebas y entrena a una nueva generación de graduados.
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <small class="text-muted">
+                                <i class="bi bi-calendar3 me-1"></i>27 May 2022
+                            </small>
+                            <div class="d-flex gap-1">
+                                <button class="btn btn-outline-warning btn-sm" onclick="agregarFavorito(5)" title="Agregar a favoritas">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                                <a href="detalle.html?id=5" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 4: The Batman -->
+            <div class="col-12 col-sm-6 col-md-4 pelicula-item"
+                 data-titulo="the batman"
+                 data-genero="accion"
+                 data-anio="2022"
+                 data-calif="7.8"
+                 data-fecha="2022-03-04">
+                <div class="card movie-card h-100 shadow-sm">
+                    <div class="movie-poster-wrapper">
+                        <img src="img/posters/the_batman.jpg" class="card-img-top movie-poster"
+                             alt="Póster de The Batman" loading="lazy" />
+                        <div class="movie-overlay">
+                            <a href="detalle.html?id=3" class="btn btn-warning btn-sm fw-bold">
+                                <i class="bi bi-eye-fill me-1"></i>Ver Reseña
+                            </a>
+                        </div>
+                        <span class="badge-rating">
+                            <i class="bi bi-star-fill me-1"></i>7.8
+                        </span>
+                        <span class="badge-genre">Acción</span>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title movie-title">The Batman</h5>
+                        <p class="card-text text-muted small flex-grow-1">
+                            En su segundo año como Batman, Bruce Wayne investiga una serie de crímenes
+                            perpetrados por un asesino en serie conocido como El Acertijo.
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <small class="text-muted">
+                                <i class="bi bi-calendar3 me-1"></i>04 Mar 2022
+                            </small>
+                            <div class="d-flex gap-1">
+                                <button class="btn btn-outline-warning btn-sm" onclick="agregarFavorito(3)" title="Agregar a favoritas">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                                <a href="detalle.html?id=3" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 5: Spider-Man No Way Home -->
+            <div class="col-12 col-sm-6 col-md-4 pelicula-item"
+                 data-titulo="spider-man no way home"
+                 data-genero="accion"
+                 data-anio="2021"
+                 data-calif="8.3"
+                 data-fecha="2021-12-17">
+                <div class="card movie-card h-100 shadow-sm">
+                    <div class="movie-poster-wrapper">
+                        <img src="img/posters/spiderman_nwh.jpg" class="card-img-top movie-poster"
+                             alt="Póster de Spider-Man: No Way Home" loading="lazy" />
+                        <div class="movie-overlay">
+                            <a href="detalle.html?id=4" class="btn btn-warning btn-sm fw-bold">
+                                <i class="bi bi-eye-fill me-1"></i>Ver Reseña
+                            </a>
+                        </div>
+                        <span class="badge-rating">
+                            <i class="bi bi-star-fill me-1"></i>8.3
+                        </span>
+                        <span class="badge-genre">Acción</span>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title movie-title">Spider-Man: No Way Home</h5>
+                        <p class="card-text text-muted small flex-grow-1">
+                            Peter Parker pide al Doctor Strange que haga olvidar al mundo que él es
+                            Spider-Man, pero el hechizo sale mal y abre el multiverso.
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <small class="text-muted">
+                                <i class="bi bi-calendar3 me-1"></i>17 Dic 2021
+                            </small>
+                            <div class="d-flex gap-1">
+                                <button class="btn btn-outline-warning btn-sm" onclick="agregarFavorito(4)" title="Agregar a favoritas">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                                <a href="detalle.html?id=4" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 6: Avengers Endgame -->
+            <div class="col-12 col-sm-6 col-md-4 pelicula-item"
+                 data-titulo="avengers endgame"
+                 data-genero="accion"
+                 data-anio="2019"
+                 data-calif="8.4"
+                 data-fecha="2019-04-26">
+                <div class="card movie-card h-100 shadow-sm">
+                    <div class="movie-poster-wrapper">
+                        <img src="img/posters/avengers_endgame.jpg" class="card-img-top movie-poster"
+                             alt="Póster de Avengers: Endgame" loading="lazy" />
+                        <div class="movie-overlay">
+                            <a href="detalle.html?id=6" class="btn btn-warning btn-sm fw-bold">
+                                <i class="bi bi-eye-fill me-1"></i>Ver Reseña
+                            </a>
+                        </div>
+                        <span class="badge-rating">
+                            <i class="bi bi-star-fill me-1"></i>8.4
+                        </span>
+                        <span class="badge-genre">Acción</span>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title movie-title">Avengers: Endgame</h5>
+                        <p class="card-text text-muted small flex-grow-1">
+                            Los Vengadores supervivientes se unen para revertir las acciones de Thanos
+                            y restaurar el orden en el universo.
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <small class="text-muted">
+                                <i class="bi bi-calendar3 me-1"></i>26 Abr 2019
+                            </small>
+                            <div class="d-flex gap-1">
+                                <button class="btn btn-outline-warning btn-sm" onclick="agregarFavorito(6)" title="Agregar a favoritas">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                                <a href="detalle.html?id=6" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 7: Interstellar -->
+            <div class="col-12 col-sm-6 col-md-4 pelicula-item"
+                 data-titulo="interstellar"
+                 data-genero="ciencia-ficcion"
+                 data-anio="2014"
+                 data-calif="8.7"
+                 data-fecha="2014-11-07">
+                <div class="card movie-card h-100 shadow-sm">
+                    <div class="movie-poster-wrapper">
+                        <img src="img/posters/interstellar.jpg" class="card-img-top movie-poster"
+                             alt="Póster de Interstellar" loading="lazy" />
+                        <div class="movie-overlay">
+                            <a href="detalle.html?id=7" class="btn btn-warning btn-sm fw-bold">
+                                <i class="bi bi-eye-fill me-1"></i>Ver Reseña
+                            </a>
+                        </div>
+                        <span class="badge-rating">
+                            <i class="bi bi-star-fill me-1"></i>8.7
+                        </span>
+                        <span class="badge-genre">Ciencia Ficción</span>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title movie-title">Interstellar</h5>
+                        <p class="card-text text-muted small flex-grow-1">
+                            Un grupo de exploradores viaja a través de un agujero de gusano en el espacio
+                            para garantizar la supervivencia de la humanidad.
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <small class="text-muted">
+                                <i class="bi bi-calendar3 me-1"></i>07 Nov 2014
+                            </small>
+                            <div class="d-flex gap-1">
+                                <button class="btn btn-outline-warning btn-sm" onclick="agregarFavorito(7)" title="Agregar a favoritas">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                                <a href="detalle.html?id=7" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 8: Inception -->
+            <div class="col-12 col-sm-6 col-md-4 pelicula-item"
+                 data-titulo="inception"
+                 data-genero="suspenso"
+                 data-anio="2010"
+                 data-calif="8.8"
+                 data-fecha="2010-07-16">
+                <div class="card movie-card h-100 shadow-sm">
+                    <div class="movie-poster-wrapper">
+                        <img src="img/posters/inception.jpg" class="card-img-top movie-poster"
+                             alt="Póster de Inception" loading="lazy" />
+                        <div class="movie-overlay">
+                            <a href="detalle.html?id=8" class="btn btn-warning btn-sm fw-bold">
+                                <i class="bi bi-eye-fill me-1"></i>Ver Reseña
+                            </a>
+                        </div>
+                        <span class="badge-rating">
+                            <i class="bi bi-star-fill me-1"></i>8.8
+                        </span>
+                        <span class="badge-genre">Suspenso</span>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title movie-title">Inception</h5>
+                        <p class="card-text text-muted small flex-grow-1">
+                            Un ladrón que roba secretos corporativos a través del uso de tecnología
+                            de sueños compartidos recibe la tarea inversa de plantar una idea.
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <small class="text-muted">
+                                <i class="bi bi-calendar3 me-1"></i>16 Jul 2010
+                            </small>
+                            <div class="d-flex gap-1">
+                                <button class="btn btn-outline-warning btn-sm" onclick="agregarFavorito(8)" title="Agregar a favoritas">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                                <a href="detalle.html?id=8" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /LISTADO -->
+
+        <!-- Mensaje sin resultados -->
+        <div class="row d-none" id="sinResultados">
+            <div class="col-12 text-center py-5">
+                <i class="bi bi-film display-1 text-muted"></i>
+                <h4 class="mt-3 text-muted">No se encontraron películas</h4>
+                <p class="text-muted">Intenta con otros filtros o términos de búsqueda.</p>
+                <button class="btn btn-warning" id="btnLimpiar2" type="button">
+                    <i class="bi bi-arrow-counterclockwise me-1"></i>Limpiar filtros
+                </button>
+            </div>
+        </div>
+
+        <!-- ===== SECCIÓN FAVORITAS ===== -->
+        <div class="row mt-5" id="favoritas">
+            <div class="col-12">
+                <h2 class="section-title">
+                    <i class="bi bi-heart-fill text-danger me-2"></i>Mis Películas Favoritas
+                </h2>
+                <hr class="border-warning opacity-50" />
+            </div>
+            <div class="col-12" id="listaFavoritas">
+                <div class="alert alert-secondary d-flex align-items-center gap-2" role="alert">
+                    <i class="bi bi-info-circle-fill fs-5 text-warning"></i>
+                    <span>Aún no has agregado películas a tus favoritas. Haz clic en
+                    <i class="bi bi-heart"></i> en cualquier película para comenzar.</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <!-- /MAIN -->
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-12 col-sm-6 col-md-4">
+                    <h5 class="text-warning mb-3">
+                        <i class="bi bi-camera-reels-fill me-2"></i>CineReseñas
+                    </h5>
+                    <p class="text-white-50 small">
+                        Tu plataforma de reseñas y descubrimiento de películas. Encuentra tu próxima
+                        película favorita y comparte tu opinión con la comunidad.
+                    </p>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <h6 class="text-warning mb-3">Navegación</h6>
+                    <ul class="list-unstyled small">
+                        <li><a href="index.html" class="text-white-50 text-decoration-none">
+                            <i class="bi bi-chevron-right me-1"></i>Inicio</a></li>
+                        <li><a href="#peliculas" class="text-white-50 text-decoration-none">
+                            <i class="bi bi-chevron-right me-1"></i>Películas</a></li>
+                        <li><a href="#favoritas" class="text-white-50 text-decoration-none">
+                            <i class="bi bi-chevron-right me-1"></i>Favoritas</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <h6 class="text-warning mb-3">Géneros</h6>
+                    <div class="d-flex flex-wrap gap-1">
+                        <span class="badge bg-secondary">Acción</span>
+                        <span class="badge bg-secondary">Drama</span>
+                        <span class="badge bg-secondary">Ciencia Ficción</span>
+                        <span class="badge bg-secondary">Suspenso</span>
+                        <span class="badge bg-secondary">Aventura</span>
+                        <span class="badge bg-secondary">Terror</span>
+                    </div>
+                </div>
+            </div>
+            <hr class="border-secondary mt-4" />
+            <div class="row">
+                <div class="col-12 text-center">
+                    <small class="text-white-50">
+                        &copy; 2024 CineReseñas &mdash; AA1_Aparicio_Chaves_Nicolas &mdash;
+                        Desarrollado con Bootstrap 5
+                    </small>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- /FOOTER -->
+
+    <!-- Toast de notificación -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index:9999">
+        <div id="toastFavorito" class="toast align-items-center text-bg-warning border-0" role="alert"
+             aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body fw-semibold">
+                    <i class="bi bi-heart-fill me-2"></i>
+                    <span id="toastMensaje">Película agregada a favoritas</span>
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                        data-bs-dismiss="toast" aria-label="Cerrar"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- JS Personalizado -->
+    <script src="js/main.js"></script>
+</body>
+</html>
